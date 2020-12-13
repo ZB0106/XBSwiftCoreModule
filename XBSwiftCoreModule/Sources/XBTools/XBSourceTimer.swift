@@ -9,7 +9,7 @@ import Foundation
 private let XBTimerQueueLabel = "com.XBTimerQueueLabel"
 
 //timer在suspend状态时不能赋值为空否者会崩溃,赋值为空会蹦 why？
-class XBSourceTimer: NSObject {
+public class XBSourceTimer: NSObject {
     
     deinit {
         print("XBSourceTimer deinit")
@@ -49,7 +49,7 @@ class XBSourceTimer: NSObject {
     
 //    var methodFunc = resume
 //    methodFunc()
-    func resume() {
+   public func resume() {
         timerSem.wait()
         if reusmeCount == 0 {
             self.timer?.resume()
@@ -57,7 +57,7 @@ class XBSourceTimer: NSObject {
         }
         timerSem.signal()
     }
-    func suspend() {
+    public func suspend() {
         timerSem.wait()
         if reusmeCount == 1 {
             self.timer?.suspend()
@@ -66,7 +66,7 @@ class XBSourceTimer: NSObject {
         timerSem.signal()
     }
     
-    func cancel() {
+    public func cancel() {
         timerSem.wait()
         if reusmeCount == 1 {
             self.timer?.cancel()

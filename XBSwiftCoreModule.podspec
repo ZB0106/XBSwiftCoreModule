@@ -3,12 +3,12 @@
 Pod::Spec.new do |s|
 
   s.name         = "XBSwiftCoreModule"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "develop components for swift, you can configure a listview or circleView with this components"
-  s.homepage     = "https://gitee.com/xBing_code/xbioscode"
+  s.homepage     = "https://github.com/ZB0106/XBSwiftCoreModule"
   s.author             = { "rzb16@sina.com" => "rzb16@sina.com" }
   s.platform     = :ios, "9.0"
-  s.source       = { :git => "https://gitee.com/xBing_code/xbioscode.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/ZB0106/XBSwiftCoreModule", :tag => "#{s.version}" }
   s.source_files  = "XBSwiftCoreModule/Sources/XBListViewManager/*","XBSwiftCoreModule/Sources/XBCircleScroll/*","XBSwiftCoreModule/Sources/XBMenuView/*","XBSwiftCoreModule/Sources/XBFoundationExtension/*","XBSwiftCoreModule/Sources/XBUIKitExtension/*","XBSwiftCoreModule/Sources/XBTools/*"
   s.resources = "XBSwiftCoreModule/Sources/XBCircleScroll/*.bundle"
   s.requires_arc = true
