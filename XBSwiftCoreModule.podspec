@@ -3,21 +3,21 @@
 Pod::Spec.new do |s|
 
   s.name         = "XBSwiftCoreModule"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "develop components for swift, you can configure a listview or circleView with this components"
   s.homepage     = "https://github.com/ZB0106/XBSwiftCoreModule"
   s.author             = { "rzb16@sina.com" => "rzb16@sina.com" }
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/ZB0106/XBSwiftCoreModule", :tag => "#{s.version}" }
-  s.source_files  = "XBSwiftCoreModule/Sources/XBListViewManager/*","XBSwiftCoreModule/Sources/XBCircleScroll/*","XBSwiftCoreModule/Sources/XBMenuView/*","XBSwiftCoreModule/Sources/XBFoundationExtension/*","XBSwiftCoreModule/Sources/XBUIKitExtension/*","XBSwiftCoreModule/Sources/XBTools/*"
+  s.source_files  = "XBSwiftCoreModule/Sources/XBListViewManager/*/*.swift","XBSwiftCoreModule/Sources/XBCircleScroll/*.swift","XBSwiftCoreModule/Sources/XBMenuView/*.swift","XBSwiftCoreModule/Sources/XBFoundationExtension/*.swift","XBSwiftCoreModule/Sources/XBUIKitExtension/*.swift","XBSwiftCoreModule/Sources/XBTools/*.swift"
   s.resources = "XBSwiftCoreModule/Sources/XBCircleScroll/*.bundle"
   s.requires_arc = true
   s.frameworks = 'UIKit', 'Foundation'
-#  #子部件
+  #子部件
   s.subspec 'XBListViewManager' do |xb|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBListViewManager/*/*.swift','XBSwiftCoreModule/Sources/XBListViewManager/*.swift'
   xb.frameworks = 'UIKit', 'Foundation'
-  
+
   #依赖子库
 #  xb.dependency 'CocoapodsStudy/ZB_Swift_Base'
   end
@@ -30,19 +30,19 @@ Pod::Spec.new do |s|
  s.subspec 'XBMenuView' do |xb|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBMenuView/*/*.swift','XBSwiftCoreModule/Sources/XBMenuView/*.swift'
   xb.frameworks = 'UIKit', 'Foundation'
-  
+
   end
 s.subspec 'XBFoundationExtension' do |xb|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBFoundationExtension/*/*.swift','XBSwiftCoreModule/Sources/XBFoundationExtension/*.swift'
   xb.frameworks = 'UIKit', 'Foundation'
-  
+
   end
 s.subspec 'XBUIKitExtension' do |xb|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBUIKitExtension/*/*.swift','XBSwiftCoreModule/Sources/XBUIKitExtension/*.swift'
   xb.frameworks = 'UIKit', 'Foundation'
-  
+
   end
-  
+
   s.subspec 'XBTools' do |xb|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBTools/*/*.swift','XBSwiftCoreModule/Sources/XBTools/*.swift'
   xb.frameworks = 'UIKit', 'Foundation'
