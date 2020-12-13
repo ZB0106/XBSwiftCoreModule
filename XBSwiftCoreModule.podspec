@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBCircleScroll/*/*.swift','XBSwiftCoreModule/Sources/XBCircleScroll/*.swift'
   xb.resources = "XBSwiftCoreModule/Sources/XBCircleScroll/*.bundle"
   xb.frameworks = 'UIKit', 'Foundation'
-  
+  xb.dependency 'XBSwiftCoreModule/XBTools'
   end
  s.subspec 'XBMenuView' do |xb|
   xb.source_files = 'XBSwiftCoreModule/Sources/XBMenuView/*/*.swift','XBSwiftCoreModule/Sources/XBMenuView/*.swift'
