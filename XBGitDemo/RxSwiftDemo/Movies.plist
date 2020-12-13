@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   Movies.plist
+   RXSWiftStudy
+
+   Created by 苹果兵 on 2020/11/1.
+   Copyright (c) 2020 ___ORGANIZATIONNAME___. All rights reserved.
+-->
+<plist version="1.0">
+<dict>
+    <key>港囧</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/spst/public/p2266145079.jpg</string>
+    <key>第三种爱情</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2267236332.jpg</string>
+    <key>碟中谍5</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2263582212.jpg</string>
+    <key>小黄人大眼萌</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2265761240.jpg</string>
+    <key>夏洛特烦恼</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2264377763.jpg</string>
+    <key>魔镜</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2266110047.jpg</string>
+    <key>长江7号</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2268754172.jpg</string>
+    <key>九层妖塔</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2267502788.jpg</string>
+    <key>解救吾先生</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2267511583.jpg</string>
+    <key>暗杀</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2265025290.jpg</string>
+    <key>诡打墙</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2266127649.jpg</string>
+    <key>像素大战</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2262297012.jpg</string>
+    <key>逆转胜</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2266298839.jpg</string>
+    <key>诱狼</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2263788342.jpg</string>
+    <key>这里的黎明静悄悄</key>
+    <string>http://img3.doubanio.com/view/movie_poster_cover/mpst/public/p2262316531.jpg</string>
+    <key>hangge.com</key>
+    <string>http://xxxxxx</string>
+</dict>
+</plist>
