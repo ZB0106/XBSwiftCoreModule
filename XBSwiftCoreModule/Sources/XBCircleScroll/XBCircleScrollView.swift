@@ -7,10 +7,6 @@
 
 import UIKit
 
-private let XBTimerQueueLabel = "com.XBTimerQueueLabel"
-
-
-
 public protocol XBCircleScrollViewDelegate: class {
     func XBCircleView(circleView: UIView, configureDataWithIndex index: Int)
 }
@@ -96,6 +92,14 @@ public class XBCircleScrollView: UIView {
             self.heightConstrait.isActive = true
         }
     }
+    private var _pageType: XBCirclePageControl.XBPageControlType = .multiple()
+    public var pageType: XBCirclePageControl.XBPageControlType = .multiple() {
+        didSet {
+            self.pageControl?.pageType = pageType
+            currentPage = 1
+            updateImage()
+        }
+    }
     weak public var delegate: XBCircleScrollViewDelegate?
     private var pageControl: XBCirclePageControl?
     private var leftImv: UIView?
@@ -115,6 +119,8 @@ public class XBCircleScrollView: UIView {
    
     public init(circleViewType: AnyClass? = UIImageView.self, isUseTimer: Bool = false, timerInterval: Int = 3, isShowPageControl: Bool = true, pageType: XBCirclePageControl.XBPageControlType = .multiple()) {
         super.init(frame: .zero)
+        self.pageType = pageType
+        //写在前面这样初始化的时候不会反复调用pagetype
         if isShowPageControl {
             pageControl = XBCirclePageControl(pageType: pageType)
             pageControl?.delegate = self

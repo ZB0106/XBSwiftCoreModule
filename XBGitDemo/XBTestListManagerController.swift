@@ -474,6 +474,28 @@ class XBTestCollectionController: UIViewController {
             make.height.equalTo(100)
         }
         
+        var com2 = XBMenuButtonComponents()
+        com2.titleColor = UIColor.black
+        com2.selTitleColor = UIColor.red
+        com2.downLineSelColor = UIColor.red
+        let meneview2 = XBTopMenuView(titles: ["multiple","single", "count+"], contentSizeType: .equalToSuper, buttonComponents: com2)
+        self.view.addSubview(meneview2)
+        meneview2.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(cirview.snp.bottom)
+            make.height.equalTo(40)
+        }
+        meneview2.clickHandle = { [weak self] tag in
+            if tag == 0 {
+                self?.cirview.pageType = .multiple()
+            } else if tag == 1 {
+                self?.cirview.pageType = .single()
+            } else if tag == 2 {
+                self?.cirview.pageCount += 1
+            }
+        }
+        
+        
         var coms0 = XBMenuButtonComponents()
         coms0.titleColor = UIColor.black
         coms0.selTitleColor = UIColor.red
@@ -482,7 +504,7 @@ class XBTestCollectionController: UIViewController {
         self.view.addSubview(meneview0)
         meneview0.snp.makeConstraints { (make) in
             make.left.right.equalToSuperview()
-            make.top.equalTo(cirview.snp.bottom)
+            make.top.equalTo(meneview2.snp.bottom)
             make.height.equalTo(40)
         }
         meneview0.clickHandle = { [weak self] tag in
@@ -540,7 +562,6 @@ class XBTestCollectionController: UIViewController {
         guard let data = NSDictionary(contentsOfFile: Bundle.main.path(forResource: "Movies.plist", ofType:nil)!) else {
             return
         }
-        cirview.pageCount = 5
         var movies = [XBMovieModel]()
         for (key, value) in data {
             var movie = XBMovieModel()

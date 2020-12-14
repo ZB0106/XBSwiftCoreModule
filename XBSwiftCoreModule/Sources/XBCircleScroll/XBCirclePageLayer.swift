@@ -18,7 +18,6 @@ class  XBCirclePageLayer: CALayer {
         self.pageCount = pageCount
         super.init()
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -43,13 +42,17 @@ class  XBCirclePageLayer: CALayer {
         //        ctx?.translateBy(x: 0, y: -size.height)
         //centent 只能赋值cgimage类型，其他类型不生效
         super.contents = super.contents
+        
         if bounds.height == 0 || bounds.width == 0 {
             return
         }
-        //如果已经绘制过，就不需要重新绘制
-        if norContents != nil && selContents != nil {
-            return
+        if needsDisplayOnBoundsChange {
+            needsDisplayOnBoundsChange = false
+            norContents = nil
+            selContents = nil
+            contents = nil
         }
+        guard norContents == nil || selContents == nil else { return }
         
         //  //先开启绘制上下文，再获取 否者ctx为nil
         let height = bounds.height
@@ -156,7 +159,7 @@ class  XBCirclePageLayer: CALayer {
                     let width = CTLineGetTypographicBounds(line, &ascent, &descent, &leading)
 //                    let lineHeight = ceil(abs(ascent) + abs(descent) + abs(leading))
                     let lineHeight = ceil(abs(ascent))
-                    let y = (height-lineHeight)/2.0
+                    let y = (height-lineHeight)/2.0 + ceil(abs(descent)/2.0)
                     let x = (bounds.width-CGFloat(width))/2.0
                     ctx?.textPosition = CGPoint(x: x, y: y)
                     CTLineDraw(line, ctx!)
@@ -176,7 +179,6 @@ class  XBCirclePageLayer: CALayer {
         
         UIGraphicsEndImageContext()
     }
-    
 }
 //MARK: Draw
 extension XBCirclePageLayer {

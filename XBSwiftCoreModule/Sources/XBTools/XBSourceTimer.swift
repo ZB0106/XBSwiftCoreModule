@@ -49,7 +49,7 @@ public class XBSourceTimer: NSObject {
     
 //    var methodFunc = resume
 //    methodFunc()
-   public func resume() {
+    public func resume() {
         timerSem.wait()
         if reusmeCount == 0 {
             self.timer?.resume()

@@ -56,11 +56,25 @@ public class XBCirclePageControl: UIView {
     var pageCount = 0 {
         didSet {
             layer.sublayers?.forEach{ $0.removeFromSuperlayer() }
+            
             for i in 0..<pageCount {
                 let _layer = XBCirclePageLayer(pageType: pageType, currentCount: i, pageCount: pageCount)
                 layer.addSublayer(_layer)
             }
-            //重新布局
+            //重新布局self
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        }
+    }
+    internal var pageType: XBPageControlType = .multiple() {
+        didSet {
+            layer.sublayers?.forEach{ $0.removeFromSuperlayer() }
+            
+            for i in 0..<pageCount {
+                let _layer = XBCirclePageLayer(pageType: pageType, currentCount: i, pageCount: pageCount)
+                layer.addSublayer(_layer)
+            }
+            //重新布局self
             self.setNeedsLayout()
             self.layoutIfNeeded()
         }
@@ -70,28 +84,33 @@ public class XBCirclePageControl: UIView {
             guard let layers = layer.sublayers else { return }
             switch pageType {
             case .multiple:
+                //关闭layer的隐式动画
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
                 for (i, layer) in layers.enumerated() {
                     (layer as? XBCirclePageLayer)?.isSelected = i == currentPage
-                    layer.setNeedsDisplay()
-                    layer.displayIfNeeded()
                 }
+                CATransaction.commit()
             case .single:
+                //关闭layer的隐式动画
+                CATransaction.begin()
+                CATransaction.setDisableActions(true)
                 for (i, layer) in layers.enumerated() {
-                    (layer as? XBCirclePageLayer)?.isHidden = i != currentPage
-                    layer.setNeedsDisplay()
-                    layer.displayIfNeeded()
+                    layer.isHidden = i != currentPage
                 }
+                CATransaction.commit()
             }
             
         }
     }
-    private var pageType: XBPageControlType = .multiple()
+   
     private var widthLayout: NSLayoutConstraint?
     weak var delegate: XBCirclePageControlDelegate?
     
     init(pageType: XBPageControlType = .multiple()) {
-        super.init(frame: .zero)
         self.pageType = pageType
+        super.init(frame: .zero)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -131,7 +150,8 @@ extension XBCirclePageControl {
     public override func layoutSublayers(of layer: CALayer) {
         if bounds.width == 0 || bounds.height == 0 { return }
         guard let layers = layer.sublayers else { return }
-         
+        
+        print("layoutSublayers",bounds)
         let size = bounds.size.height
         let gap: CGFloat = 3.0
         
@@ -139,12 +159,15 @@ extension XBCirclePageControl {
         case .multiple:
             for (i, _layer) in layers.enumerated() {
                 _layer.frame = CGRect(x: CGFloat(i)*(gap+size), y: 0, width: size, height: size)
+                _layer.needsDisplayOnBoundsChange = true
                 _layer.setNeedsDisplay()
                 _layer.displayIfNeeded()
             }
         case .single:
             for (_, _layer) in layers.enumerated() {
                 _layer.frame = CGRect(x: 0, y: 0, width: bounds.width, height: size)
+                //标记需要bounds改变时需要重绘
+                _layer.needsDisplayOnBoundsChange = true
                 _layer.setNeedsDisplay()
                 _layer.displayIfNeeded()
             }
