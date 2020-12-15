@@ -18,7 +18,7 @@ public class XBCollectionManager: XBBaseListManager {
     
     
     weak public var delegate : XBCollectionManagerDelegate?
-    weak public var flowLayout: UICollectionViewLayout!
+    private var flowLayout: UICollectionViewLayout!
     
     public init(flowLayout: UICollectionViewLayout? = nil, cellClass: String? = nil, emptyManager: XBListEmptyManagerProtocol? = nil) {
         super.init()

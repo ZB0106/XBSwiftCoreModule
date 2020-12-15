@@ -12,20 +12,20 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SnapKit (4.2.0)
-  - XBSwiftCoreModule (0.0.3):
-    - XBSwiftCoreModule/XBCircleScroll (= 0.0.3)
-    - XBSwiftCoreModule/XBFoundationExtension (= 0.0.3)
-    - XBSwiftCoreModule/XBListViewManager (= 0.0.3)
-    - XBSwiftCoreModule/XBMenuView (= 0.0.3)
-    - XBSwiftCoreModule/XBTools (= 0.0.3)
-    - XBSwiftCoreModule/XBUIKitExtension (= 0.0.3)
-  - XBSwiftCoreModule/XBCircleScroll (0.0.3):
+  - XBSwiftCoreModule (0.0.5):
+    - XBSwiftCoreModule/XBCircleScroll (= 0.0.5)
+    - XBSwiftCoreModule/XBFoundationExtension (= 0.0.5)
+    - XBSwiftCoreModule/XBListViewManager (= 0.0.5)
+    - XBSwiftCoreModule/XBMenuView (= 0.0.5)
+    - XBSwiftCoreModule/XBTools (= 0.0.5)
+    - XBSwiftCoreModule/XBUIKitExtension (= 0.0.5)
+  - XBSwiftCoreModule/XBCircleScroll (0.0.5):
     - XBSwiftCoreModule/XBTools
-  - XBSwiftCoreModule/XBFoundationExtension (0.0.3)
-  - XBSwiftCoreModule/XBListViewManager (0.0.3)
-  - XBSwiftCoreModule/XBMenuView (0.0.3)
-  - XBSwiftCoreModule/XBTools (0.0.3)
-  - XBSwiftCoreModule/XBUIKitExtension (0.0.3)
+  - XBSwiftCoreModule/XBFoundationExtension (0.0.5)
+  - XBSwiftCoreModule/XBListViewManager (0.0.5)
+  - XBSwiftCoreModule/XBMenuView (0.0.5)
+  - XBSwiftCoreModule/XBTools (0.0.5)
+  - XBSwiftCoreModule/XBUIKitExtension (0.0.5)
 
 DEPENDENCIES:
   - Alamofire
@@ -57,7 +57,7 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  XBSwiftCoreModule: 44777693b5a46d00e2ed1f926d700ac0cc9a1775
+  XBSwiftCoreModule: 448bf15f570a3efea7a222c51c1f95dc517aa56d
 
 PODFILE CHECKSUM: e20ca72540173cb54bbe30fc2b90180c04cc2d54
 
