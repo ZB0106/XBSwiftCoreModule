@@ -55,6 +55,14 @@ public class XBCircleScrollView: UIView {
    
     public var pageCount: Int = 0 {
         didSet {
+            //pagecount==1时不需要滚动
+            if pageCount == 1 {
+                self.removeTimer()
+                scrollView.isScrollEnabled = false
+            } else {
+                self.addTimer()
+                scrollView.isScrollEnabled = true
+            }
             pageControl?.pageCount = pageCount
             currentPage = 1
             updateImage()
@@ -109,6 +117,7 @@ public class XBCircleScrollView: UIView {
     private var heightConstrait: NSLayoutConstraint!
     private var bottomConstrait: NSLayoutConstraint!
     
+    private var isShowTimer: Bool = false
     private var timer: XBSourceTimer?
     private var currentPage: Int = 1
     private var prePage: Int = 0
@@ -137,11 +146,7 @@ public class XBCircleScrollView: UIView {
         }
         self.circleViewType = circleViewType
         self.setUpSubViews()
-        
-        if isUseTimer {
-            self.timer = XBSourceTimer(timeInterval: 3, target: self, selector: #selector(handelTimerEvent))
-            self.timer?.resume()
-        }
+        self.isShowTimer = isUseTimer
     }
     
     required init?(coder: NSCoder) {
@@ -224,6 +229,13 @@ extension XBCircleScrollView {
 
 //MARK: Timer
 extension XBCircleScrollView {
+    
+    func addTimer() {
+        if self.isShowTimer && self.timer == nil {
+            self.timer = XBSourceTimer(timeInterval: 3, target: self, selector: #selector(handelTimerEvent))
+            self.timer?.resume()
+        }
+    }
     
     func resumeTimer() {
         self.timer?.resume()
