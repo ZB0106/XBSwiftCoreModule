@@ -64,7 +64,6 @@
 		768B748825528006002031B0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		768B748D25528008002031B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		768B749025528008002031B0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Launch.storyboard; sourceTree = "<group>"; };
-		768B749225528008002031B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		768B749725528008002031B0 /* XBGitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XBGitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		768B749B25528008002031B0 /* XBGitDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XBGitDemoTests.swift; sourceTree = "<group>"; };
 		768B749D25528008002031B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -168,7 +167,6 @@
 				4B3F059125564AFB0053E056 /* XBGitDemo-Bridging-Header.h */,
 				768B748D25528008002031B0 /* Assets.xcassets */,
 				768B748F25528008002031B0 /* Launch.storyboard */,
-				768B749225528008002031B0 /* Info.plist */,
 			);
 			path = XBGitDemo;
 			sourceTree = "<group>";

@@ -664,4 +664,7 @@ extension XBTestCollectionController: XBCircleScrollViewDelegate {
             view.textAlignment = .center
         }
     }
+    func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int) {
+        print("didSelectedAtIndex")
+    }
 }
