@@ -9,12 +9,12 @@ import UIKit
 
 public protocol XBCircleScrollViewDelegate: class {
     func XBCircleView(circleView: UIView, configureDataWithIndex index: Int)
+    func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int)
 }
 
 extension XBCircleScrollViewDelegate {
-    public func XBCircleView(circleView: UIView, configureDataWithIndex index: Int) {
-        
-    }
+    public func XBCircleView(circleView: UIView, configureDataWithIndex index: Int) {}
+    public func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int) {}
 }
 
 public class XBCircleScrollView: UIView {
@@ -56,7 +56,7 @@ public class XBCircleScrollView: UIView {
     public var pageCount: Int = 0 {
         didSet {
             //pagecount==1时不需要滚动
-            if pageCount == 1 {
+            if pageCount <= 1 {
                 self.removeTimer()
                 scrollView.isScrollEnabled = false
             } else {
@@ -147,6 +147,9 @@ public class XBCircleScrollView: UIView {
         self.circleViewType = circleViewType
         self.setUpSubViews()
         self.isShowTimer = isUseTimer
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(didTap))
+        self.addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {
@@ -263,6 +266,7 @@ extension XBCircleScrollView {
 
 //update
 extension XBCircleScrollView: XBCirclePageControlDelegate {
+    
     func updateImage() {
         guard leftImv != nil, centerImv != nil, rightImv != nil else {
             assertionFailure("circleViewType must be a subclass of uiview")
@@ -303,6 +307,11 @@ extension XBCircleScrollView: XBCirclePageControlDelegate {
             currentPage = index + 1
             self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         }
+    }
+    
+    @objc func didTap() {
+        guard let cenV = centerImv else { return }
+        self.delegate?.XBCircleView(circleView: cenV, didSelectedAtIndex: currentPage)
     }
 }
 

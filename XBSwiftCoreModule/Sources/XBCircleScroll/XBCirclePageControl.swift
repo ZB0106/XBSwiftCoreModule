@@ -110,6 +110,9 @@ public class XBCirclePageControl: UIView {
     init(pageType: XBPageControlType = .multiple()) {
         self.pageType = pageType
         super.init(frame: .zero)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(pageDidTap(gesture:)))
+        self.addGestureRecognizer(tap)
+        self.isUserInteractionEnabled = true
         
     }
     
@@ -174,9 +177,8 @@ extension XBCirclePageControl {
         }
         
     }
-    
-    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let point = touches.first?.location(in: self) else { return }
+    @objc func pageDidTap(gesture: UIGestureRecognizer) {
+        let point = gesture.location(in: self)
         guard let layers = layer.sublayers else { return }
         switch pageType {
         case .single:
@@ -191,5 +193,8 @@ extension XBCirclePageControl {
                 break
             }
         }
+    }
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
     }
 }
