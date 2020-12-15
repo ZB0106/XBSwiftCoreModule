@@ -9,4 +9,4 @@ import UIKit
 
 let XBScreenW = UIScreen.main.bounds.width
 let XBScreenH = UIScreen.main.bounds.height
-let XBListDefaultSecSize = CGSize(width: 0.01, height: 0.01)
+public let XBListDefaultSecSize = CGSize(width: 0.01, height: 0.01)

@@ -16,7 +16,10 @@ fileprivate struct XBModelComponentsKey {
 //MARK:- XBSectionModelProtocol
 public struct XBDataModelComponents {
     
-    public init() {}
+    public init(cellSize: CGSize = XBListDefaultSecSize, cellClass: String? = nil) {
+        self.cellSize = cellSize
+        self.cellClass = cellClass
+    }
     var isSelected: Bool = false
     var isEdit: Bool = false
     var editSize: CGSize = XBListDefaultSecSize
@@ -69,7 +72,12 @@ extension XBDataModelProtocol {
 //MARK:- setionModel
 public struct XBSectionModelComponents {
     
-    public init() {}
+    public init(headerSize: CGSize = XBListDefaultSecSize, headerClass: String? = nil, cellSize: CGSize = XBListDefaultSecSize, cellClass: String? = nil) {
+        self.headerSize = headerSize
+        self.headerClass = headerClass
+        self.cellSize = cellSize
+        self.cellClass = cellClass
+    }
     
 //    CGSize.init(width: 0, height: 0.0001)
     var items: [XBDataModelProtocol] = []

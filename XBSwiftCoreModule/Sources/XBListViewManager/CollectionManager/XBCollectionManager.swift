@@ -25,10 +25,10 @@ public class XBCollectionManager: XBBaseListManager {
         
         self.flowLayout = flowLayout
         if self.flowLayout == nil {
-            let flowLayout = UICollectionViewFlowLayout()
-            flowLayout.estimatedItemSize = .zero
-            flowLayout.scrollDirection = .vertical
-            self.flowLayout = flowLayout
+            let _flowLayout = UICollectionViewFlowLayout()
+            _flowLayout.estimatedItemSize = .zero
+            _flowLayout.scrollDirection = .vertical
+            self.flowLayout = _flowLayout
         }
         let collectionView = UICollectionView.init(frame: CGRect.zero, collectionViewLayout: self.flowLayout!)
         collectionView.delegate = self
