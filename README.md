@@ -46,7 +46,8 @@ pod 'XBSwiftCoreModule/XBListViewManager'
   ```XBTopMenuView(titles: ["centerFlow","waterFlow", "leftFlow"], contentSizeType: .equalToSuper, buttonComponents: coms)```
 
 ## Demo演示
-
+![screenShot1](https://github.com/ZB0106/ViewPictures/raw/master/Simulator%20Screen%20Shot%20-%20iPhone%2011%20-%202020-12-24%20at%2009.29.06.png)
+![screenShortGif](https://github.com/ZB0106/ViewPictures/raw/master/Screen.gif)
 ## 参与贡献
 
 1.  Fork 本仓库
