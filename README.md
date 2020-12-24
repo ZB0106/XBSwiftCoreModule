@@ -24,13 +24,13 @@ pod 'XBSwiftCoreModule/XBListViewManager'
 ## 使用说明
 #### circleScroll：  
  ```cirview = XBCircleScrollView(circleViewType: UILabel.self, isUseTimer: true)
-        cirview.delegate = self
-        cirview.pageControlRightOffSet = 30.0
-        view.addSubview(cirview)
-        cirview.pageCount = 0
-      代理方法  
-      func XBCircleView(circleView: UIView, configureDataWithIndex index: Int)
-      func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int)```
+cirview.delegate = self
+cirview.pageControlRightOffSet = 30.0
+view.addSubview(cirview)
+cirview.pageCount = 0
+代理方法  
+func XBCircleView(circleView: UIView, configureDataWithIndex index: Int)
+func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int)```
 #### listmanager：   
 使用模型控制cell的展示，初始化模型的时候必须遵循协议  
 struct XBMovieModel: XBDataModelProtocol
