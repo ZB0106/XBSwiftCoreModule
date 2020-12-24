@@ -4,22 +4,26 @@
 1、简单易用的listManager，省去你写tableview与collectionview代理以及数据源方法的时间，使得代码更简洁
 2、简单易用的collectionLayout，包含有流水布局，居中布局，以及左布局，同时支持水平布局
 3、简单易用的circleview，非常轻量级无限循环滚动库，通过这个库，你可以很方便的实现无限循环滚动，并添加定时器以及pagecontrol（自定义），分为6种样式，使用layer绘制，并做了内存缓存，防止多次绘制，（包括图片、问题、以及背景色三种子类型，还有single与mutileple父类型）
+4、简单易用的menuview，非常轻量级菜单，通过这个库，你可以很方便的实现无限循环滚动，并添加定时器以及pagecontrol（自定义），分为6种样式，使用layer绘制，并做了内存缓存，防止多次绘制，（包括图片、问题、以及背景色三种子类型，还有single与mutileple父类型）
 
-#### 软件架构
-软件架构说明
+#### CocoaPods
 
+pod 'XBSwiftCoreModule'
 
-#### 安装教程
+# or 
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+pod 'XBSwiftCoreModule/XBCircleScroll'
+
+# or
+
+pod 'XBSwiftCoreModule/XBMenuView'
+# or
+
+pod 'XBSwiftCoreModule/XBListViewManager'
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+
 
 #### 参与贡献
 
