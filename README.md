@@ -23,27 +23,31 @@ pod 'XBSwiftCoreModule/XBListViewManager'
 
 ## 使用说明
 #### circleScroll：  
- ```cirview = XBCircleScrollView(circleViewType: UILabel.self, isUseTimer: true)
-cirview.delegate = self
-cirview.pageControlRightOffSet = 30.0
-view.addSubview(cirview)
-cirview.pageCount = 0
-代理方法  
-func XBCircleView(circleView: UIView, configureDataWithIndex index: Int)
-func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int)```
+```初始化方法```  
+```public init(circleViewType: AnyClass? = UIImageView.self, isUseTimer: Bool = false, timerInterval: Int = 3, isShowPageControl: Bool = true, pageType: XBCirclePageControl.XBPageControlType = .multiple())```  
+ ```cirview = XBCircleScrollView(circleViewType: UILabel.self, isUseTimer: true)```    
+```cirview.delegate = self``` 
+```cirview.pageControlRightOffSet = 30.0```  
+```view.addSubview(cirview)``` 
+```cirview.pageCount = 0``` 
+```代理方法```    
+```func XBCircleView(circleView: UIView, configureDataWithIndex index: Int)```  
+```func XBCircleView(circleView: UIView, didSelectedAtIndex index: Int)```  
 #### listmanager：   
-使用模型控制cell的展示，初始化模型的时候必须遵循协议  
-struct XBMovieModel: XBDataModelProtocol
-struct XBMovieSecModel: XBSectionModelProtocol
-listmanger初始化  
-```// public init(flowLayout: UICollectionViewLayout? = nil, cellClass: String? = nil, emptyManager: XBListEmptyManagerProtocol? = nil)   
-let v = XBCollectionManager(flowLayout: self.layout, emptyManager: XBListEmptyManager())  
-v.delegate = self```  
+```使用模型控制cell的展示，初始化模型的时候必须遵循协议```    
+```struct XBMovieModel: XBDataModelProtocol```  
+```struct XBMovieSecModel: XBSectionModelProtocol```  
+```listmanger初始化```   
+```// public init(flowLayout: UICollectionViewLayout? = nil, cellClass: String? = nil, emptyManager: XBListEmptyManagerProtocol? = nil)```   
+```let v = XBCollectionManager(flowLayout: self.layout, emptyManager: XBListEmptyManager())```    
+```v.delegate = self```    
 #### menuview  
 初始化   
   ```XBTopMenuView(titles: ["centerFlow","waterFlow", "leftFlow"], contentSizeType: .equalToSuper, buttonComponents: coms)```
 
-#### 参与贡献
+## Demo演示
+
+## 参与贡献
 
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
@@ -51,7 +55,7 @@ v.delegate = self```
 4.  新建 Pull Request
 
 
-#### 特技
+## 特技
 
 1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
 2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
