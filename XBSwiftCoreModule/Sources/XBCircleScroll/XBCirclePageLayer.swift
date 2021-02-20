@@ -96,17 +96,16 @@ class  XBCirclePageLayer: CALayer {
                     ctx?.setFillColor(_color.cgColor)
                     ctx?.drawPath(using: .fill)
                     
-                case .image(let imageName, let selImageName):
-                    var nameStr = imageName
+                case .image(let image, let selImage):
+                    var im = image
                     if isSelected {
-                        nameStr = selImageName
+                        im = selImage
                     }
                     ctx?.addArc(center: CGPoint(x: r, y: r), radius: r, startAngle: 0, endAngle: CGFloat(2*Double.pi), clockwise: true)
                     ctx?.clip()
             //        将当前位置连接到原点，并通过绘制一条直线(默认情况下)来关闭图形
             //        ctx?.closePath()
-                    let im = UIImage(contentsOfFile: nameStr)
-                    ctx?.draw(im!.cgImage!, in: bounds)
+                    ctx?.draw(im.cgImage!, in: bounds)
                 case .text(let font, let selFont, let color, let selColor):
                     
                     let text = "\(currentCount+1)"
@@ -142,14 +141,14 @@ class  XBCirclePageLayer: CALayer {
                     ctx?.addPath(path.cgPath)
                     ctx?.setFillColor(color.cgColor)
                     ctx?.drawPath(using: .fill)
-                case .image(let imageName, _):
+                case .image(let image, _):
                     let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: height/2.0, height: height/2.0))
                     ctx?.addPath(path.cgPath)
                     ctx?.clip()
             //        将当前位置连接到原点，并通过绘制一条直线(默认情况下)来关闭图形
             //        ctx?.closePath()
-                    let im = UIImage(contentsOfFile: imageName)
-                    ctx?.draw(im!.cgImage!, in: bounds)
+        
+                    ctx?.draw(image.cgImage!, in: bounds)
                 case .text(let font, _, let color, _):
                     let text = "\(currentCount+1)" + "/" + "\(pageCount)"
                     let attr = NSAttributedString(string: text, attributes: [.font: font,.foregroundColor:color])

@@ -34,6 +34,11 @@ public class XBCollectionManager: XBBaseListManager {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.white
+        if #available(iOS 11.0, *) {
+            collectionView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         self.cellClass = cellClass
         self.listView = collectionView
         //

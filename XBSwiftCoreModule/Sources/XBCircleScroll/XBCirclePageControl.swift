@@ -24,7 +24,7 @@ public class XBCirclePageControl: UIView {
         public enum XBPageControlSubType {
             
             case round(color: UIColor, selColor: UIColor)
-            case image(imageName: String, selImageName: String)
+            case image(image: UIImage, selImage: UIImage)
             case text(font: UIFont, selFont: UIFont, color: UIColor, selColor: UIColor)
             
             

@@ -25,6 +25,11 @@ public class XBTableManager: XBBaseListManager {
         temTableView.estimatedSectionHeaderHeight = 0.0
         temTableView.estimatedSectionFooterHeight = 0.0
         temTableView.estimatedRowHeight = 0.0
+        if #available(iOS 11.0, *) {
+            temTableView.contentInsetAdjustmentBehavior = .never
+        } else {
+            // Fallback on earlier versions
+        }
         self.cellClass = cellClass
         self.cellSize = cellSize ?? XBListDefaultSecSize
         
@@ -102,7 +107,7 @@ extension XBTableManager : UITableViewDataSource {
             cell.item = dataModel
             cell.configureData(item: dataModel)
         }
-        return cell!
+        return cell
     }
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let tm = self.delegate?.tableView?(tableView, viewForHeaderInSection: section) {

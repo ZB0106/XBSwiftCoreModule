@@ -3,14 +3,14 @@
 Pod::Spec.new do |s|
 
   s.name         = "XBSwiftCoreModule"
-  s.version      = "0.0.7"
+  s.version      = "0.0.8"
   s.summary      = "develop components for swift, you can configure a listview or circleView with this components"
   s.homepage     = "https://github.com/ZB0106/XBSwiftCoreModule"
   s.author             = { "rzb16@sina.com" => "rzb16@sina.com" }
   s.platform     = :ios, "9.0"
   s.source       = { :git => "https://github.com/ZB0106/XBSwiftCoreModule", :tag => "#{s.version}" }
-  s.source_files  = "XBSwiftCoreModule/Sources/XBListViewManager/*/*.swift","XBSwiftCoreModule/Sources/XBCircleScroll/*.swift","XBSwiftCoreModule/Sources/XBMenuView/*.swift","XBSwiftCoreModule/Sources/XBFoundationExtension/*.swift","XBSwiftCoreModule/Sources/XBUIKitExtension/*.swift","XBSwiftCoreModule/Sources/XBTools/*.swift"
-  s.resources = "XBSwiftCoreModule/Sources/XBCircleScroll/*.bundle"
+#  s.source_files  = "XBSwiftCoreModule/Sources/XBListViewManager/*/*.swift","XBSwiftCoreModule/Sources/XBCircleScroll/*.swift","XBSwiftCoreModule/Sources/XBMenuView/*.swift","XBSwiftCoreModule/Sources/XBFoundationExtension/*.swift","XBSwiftCoreModule/Sources/XBUIKitExtension/*.swift","XBSwiftCoreModule/Sources/XBTools/*.swift"
+#  s.resources = "XBSwiftCoreModule/Sources/XBCircleScroll/*.bundle"
   s.requires_arc = true
   s.frameworks = 'UIKit', 'Foundation'
   #子部件

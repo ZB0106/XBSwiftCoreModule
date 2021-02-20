@@ -56,6 +56,7 @@ internal extension UICollectionView {
         return self.dequeueReusableSupplementaryView(ofKind: elementKind, withReuseIdentifier: identifier, for: indexPath)
     }
     func XBDequeueReusableCollectionCell(withClassName clsName: String, clsType: AnyClass?, for indexPath: IndexPath) -> UICollectionViewCell {
+        //swit 2.0以后 UICollectionViewCell.self 可以直接获取到包名+类名 eg：XBSwiftCoreModule.UICollectionViewCell,所以可以直接使用创建cell
         let identifier = "XB"+clsName
         if cellSets.contains(identifier) == false {
             self.register(clsType, forCellWithReuseIdentifier: identifier)
@@ -71,20 +72,35 @@ internal extension UICollectionView {
 
 internal extension UITableView {
     
-    func XBDequeueReusableHeaderFooterView(withClassName clsName: String, clsType: AnyClass?) -> UITableViewHeaderFooterView? {
+    func XBDequeueReusableHeaderFooterView(withClassName clsName: String, clsType: AnyClass?) -> UITableViewHeaderFooterView {
         let identifier = "XB"+clsName
+        guard let clsType = clsType as? UITableViewHeaderFooterView.Type else {
+            fatalError("class must be kind of UITableViewCell")
+        }
         if viewSets.contains(identifier) == false {
             self.register(clsType, forHeaderFooterViewReuseIdentifier: identifier)
             viewSets.insert(identifier)
         }
-        return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
+        var view = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
+        if view == nil {
+            view = clsType.init(reuseIdentifier: identifier)
+        }
+        return view!
     }
-    func XBDequeueReusableTableCell(withClassName clsName: String, clsType: AnyClass?) -> UITableViewCell? {
+    //swit 2.0以后 UICollectionViewCell.self 可以直接获取到包名+类名 eg：XBSwiftCoreModule.UICollectionViewCell,所以可以直接使用创建cell
+    func XBDequeueReusableTableCell(withClassName clsName: String, clsType: AnyClass?) -> UITableViewCell {
         let identifier = "XB"+clsName
+        guard let clsType = clsType as? UITableViewCell.Type else {
+            fatalError("class must be kind of UITableViewCell")
+        }
         if cellSets.contains(identifier) == false {
             self.register(clsType, forCellReuseIdentifier: identifier)
             cellSets.insert(identifier)
         }
-        return self.dequeueReusableCell(withIdentifier: identifier)
+        var cell = self.dequeueReusableCell(withIdentifier: identifier)
+        if cell == nil {
+            cell = clsType.init(style: .default, reuseIdentifier: identifier)
+        }
+        return cell!
     }
 }

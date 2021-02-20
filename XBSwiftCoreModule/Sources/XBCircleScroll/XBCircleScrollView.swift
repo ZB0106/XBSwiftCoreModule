@@ -173,8 +173,7 @@ extension XBCircleScrollView {
         }
         
         guard let viewType = self.circleViewType as? UIView.Type else {
-            assertionFailure("circleViewType must be a subclass of uiview")
-            return
+            fatalError("circleViewType must be a subclass of uiview")
         }
         leftImv = viewType.init()
         rightImv = viewType.init()
