@@ -1,8 +1,8 @@
 //
-//  XBImageExtension.swift
-//  XBGitDemo
+//  XBUIImageExtension.swift
+//  XBSwiftCoreModule
 //
-//  Created by 苹果兵 on 2020/11/7.
+//  Created by xbing on 2021/2/24.
 //
 
 extension UIImage {
@@ -11,7 +11,7 @@ extension UIImage {
     ///   - color:
     ///   - size: 默认1
     /// - Returns:
-    func image(withColor color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
+    public func image(withColor color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
         var rlSize = size
         if size.width <= 0 || size.height <= 0 {
             rlSize = CGSize(width: 1, height: 1)
@@ -30,7 +30,7 @@ extension UIImage {
     ///   - inset:
     ///   - color:
     /// - Returns:
-    func image(withInset inset: UIEdgeInsets = UIEdgeInsets.zero, color: UIColor) -> UIImage? {
+    public func image(withInset inset: UIEdgeInsets = UIEdgeInsets.zero, color: UIColor) -> UIImage? {
         if inset == UIEdgeInsets.zero {
             return self
         }
@@ -63,7 +63,7 @@ extension UIImage {
     ///   - borderColor:
     ///   - borderLineJion:
     /// - Returns:
-    func imageByRoundCorner(radius: CGFloat, ivSize: CGSize = CGSize.zero,corners: UIRectCorner = .allCorners, borderWidth: CGFloat = 0, borderColor: UIColor? = nil, borderLineJion: CGLineJoin = CGLineJoin.round) -> UIImage? {
+    public func imageByRoundCorner(radius: CGFloat, ivSize: CGSize = CGSize.zero,corners: UIRectCorner = .allCorners, borderWidth: CGFloat = 0, borderColor: UIColor? = nil, borderLineJion: CGLineJoin = CGLineJoin.round) -> UIImage? {
         
         var realSize = self.size
         if ivSize != CGSize.zero {
@@ -100,4 +100,25 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image;
     }
+    
+    //网络图片转换为2x图和3x图,网络下载默认为2x图需要缩放一下
+    public func scaledToXImage(scale: CGFloat) -> UIImage? {
+        guard let cgimage = self.cgImage else {
+            return self
+        }
+        let realSize = CGSize(width: self.size.width/scale, height: self.size.height/scale)
+//        let realSize = self.size
+        //第三个参数scale理解为每个物理像素点放几个像素，比如2倍屏放两个
+        UIGraphicsBeginImageContextWithOptions(realSize, false, 0)
+        let ctx = UIGraphicsGetCurrentContext()
+        let rect = CGRect(x: 0, y: 0, width: realSize.width, height: realSize.height)
+        ctx?.scaleBy(x: 1, y: -1)
+        ctx?.translateBy(x: 0, y: -rect.size.height)
+        ctx?.draw(cgimage, in: rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+        
+    }
 }
+

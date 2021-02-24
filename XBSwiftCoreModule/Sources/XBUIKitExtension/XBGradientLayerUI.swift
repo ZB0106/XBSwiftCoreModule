@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class XBGradientLayerButton: UIButton {
+public class XBGradientLayerButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -24,13 +24,13 @@ class XBGradientLayerButton: UIButton {
         }
         
     }
-    override class var layerClass: AnyClass { CAGradientLayer.self }
+    public override class var layerClass: AnyClass { CAGradientLayer.self }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-class XBGradientLayerView: UIView {
+public class XBGradientLayerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -48,12 +48,12 @@ class XBGradientLayerView: UIView {
         }
         
     }
-    override class var layerClass: AnyClass { CAGradientLayer.self }
+    public override class var layerClass: AnyClass { CAGradientLayer.self }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
-class XBGradientLayerLabel: UILabel {
+public class XBGradientLayerLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -71,7 +71,7 @@ class XBGradientLayerLabel: UILabel {
         }
         
     }
-    override class var layerClass: AnyClass { CAGradientLayer.self }
+    public override class var layerClass: AnyClass { CAGradientLayer.self }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
