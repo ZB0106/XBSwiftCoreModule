@@ -9,11 +9,13 @@ import UIKit
 //import ObjectiveC
 
 
-private var timeKey = "controlextimekey"
-private var enventKey = "controlextimekey"
+
 extension UIControl {
     
-    
+    private struct XBControlAssociatedKey {
+        static var timeKey = "controlextimekey"
+        static var enventKey = "controlextimekey"
+    }
     /// 按钮防止连续点击
     /// - Parameters:
     ///   - timeInterval: 默认0.5
@@ -51,19 +53,19 @@ extension UIControl {
     
     var avoidTimeInterVar: CGFloat? {
         get {
-            return objc_getAssociatedObject(self, &timeKey) as? CGFloat
+            return objc_getAssociatedObject(self, &XBControlAssociatedKey.timeKey) as? CGFloat
         }
         set {
-            objc_setAssociatedObject(self, &timeKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &XBControlAssociatedKey.timeKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
     
     var avoidEvent: UInt? {
         get {
-            return objc_getAssociatedObject(self, &enventKey) as? UInt
+            return objc_getAssociatedObject(self, &XBControlAssociatedKey.enventKey) as? UInt
         }
         set {
-            objc_setAssociatedObject(self, &enventKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
+            objc_setAssociatedObject(self, &XBControlAssociatedKey.enventKey, newValue, .OBJC_ASSOCIATION_ASSIGN)
         }
     }
 }
