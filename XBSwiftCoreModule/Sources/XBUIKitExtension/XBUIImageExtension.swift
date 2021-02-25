@@ -11,7 +11,7 @@ extension UIImage {
     ///   - color:
     ///   - size: 默认1
     /// - Returns:
-    public func image(withColor color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
+    public class func image(withColor color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) -> UIImage? {
         var rlSize = size
         if size.width <= 0 || size.height <= 0 {
             rlSize = CGSize(width: 1, height: 1)
@@ -22,6 +22,44 @@ extension UIImage {
         ctx?.setFillColor(color.cgColor)
         ctx?.fill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    /// 根据corner绘制圆角图片，阴影图片只是做了偏移操作和一些其他的处理
+    /// - Parameters:
+    ///   - corners:
+    ///   - cornerRadius:
+    ///   - bgColor:
+    ///   - shadowColor:
+    ///   - shadowOffSet:
+    ///   - shadowRadius:
+    /// - Returns: Uiimage
+    public class func cornerImage(corners: UIRectCorner, cornerRadius: CGFloat, bgColor: UIColor, shadowScale: CGFloat = 0) -> UIImage? {
+        let size = cornerRadius*2
+        let rect = CGRect(x: 0, y: 0, width: size, height: size)
+        var rlSize = rect.size
+        if rlSize.width <= 0 || rlSize.height <= 0 {
+            rlSize = CGSize(width: 1, height: 1)
+        }
+         UIGraphicsBeginImageContextWithOptions(rlSize, false, shadowScale)
+        let ctx = UIGraphicsGetCurrentContext()
+//            kCGInterpolationLow：969毫秒
+//            kCGInterpolationMedium：1690毫秒
+//            kCGInterpolationHigh：2694毫秒
+//            kCGInterpolationNone：545毫秒
+        //单色图片不会影响效果所以选择最快的方式none
+        ctx?.interpolationQuality = CGInterpolationQuality.none
+        //绘制圆角路径
+        let path = UIBezierPath(roundedRect:rect, byRoundingCorners: corners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        //设置圆角路径填充色
+        ctx?.setFillColor(bgColor.cgColor)
+        //填充路径
+        path.fill()
+        //或者
+//        ctx?.addPath(path.cgPath)
+//        ctx?.fillPath()
+        path.close()
+        let image = UIGraphicsGetImageFromCurrentImageContext()?.stretchableImage(withLeftCapWidth: Int(cornerRadius), topCapHeight: Int(cornerRadius))
         UIGraphicsEndImageContext()
         return image
     }
