@@ -42,13 +42,13 @@ internal class XBCornerLayer: CALayer {
         var pathRect = bounds
         if shadowColor != nil {
             pathRect = bounds.insetBy(dx: abs(xbShadowOffset.width), dy: abs(xbShadowOffset.height))
+            ctx.setShadow(offset: xbShadowOffset, blur: 0, color: xbShadowColor)
         }
         
         let path = UIBezierPath(roundedRect: pathRect, byRoundingCorners: corners, cornerRadii: CGSize(width: xbCornerRadius, height: xbCornerRadius))
 //        CGContextBeginTransparencyLayer  //开启透明图层，用于绘制组合阴影
         ctx.addPath(path.cgPath)
         ctx.setFillColor(xbBgColor)
-        ctx.setShadow(offset: xbShadowOffset, blur: 0, color: xbShadowColor)
         ctx.fillPath()
         //        ctx.fillPath()//包含ctx.closePath()，path.fill()
         //        ctx.drawPath(using: .fill)//包含ctx.closePath()，path.fill()
@@ -66,7 +66,6 @@ internal class XBCornerLayer: CALayer {
                 return
             }
             setNeedsDisplay()
-            displayIfNeeded()
         }
     }
     internal var xbBgColor: CGColor! {
