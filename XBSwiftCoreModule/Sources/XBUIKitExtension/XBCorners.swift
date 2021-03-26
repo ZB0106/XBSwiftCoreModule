@@ -5,29 +5,29 @@
 //  Created by xbing on 2021/3/25.
 //
 
-public class XBCornerView: UIView {
+private final class XBCornerView: UIView {
     
-    public override class var layerClass: AnyClass {
+    override class var layerClass: AnyClass {
         return XBCornerLayer.self
     }
-    public func setCornerAndShow(corners: UIRectCorner, cornerRadius: CGFloat, bgColor: UIColor = UIColor.clear, shadowColor: UIColor? = nil, shadowOffSet: CGSize? = nil, shadowRadius: CGFloat? = nil, shadowOpacity: CGFloat = 1.0) {
-        guard let cornerLayer = layer as? XBCornerLayer else { return }
-        cornerLayer.corners = corners
-        cornerLayer.xbCornerRadius = cornerRadius
-        cornerLayer.xbShadowColor = shadowColor?.withAlphaComponent(shadowOpacity).cgColor
-        cornerLayer.xbBgColor = bgColor.cgColor
-        if let offset = shadowOffSet {
-            cornerLayer.xbShadowOffset = offset
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        guard let _superView = superview else { return }
+        if translatesAutoresizingMaskIntoConstraints == true {
+            translatesAutoresizingMaskIntoConstraints = false
+            let anchors = [
+                leftAnchor.constraint(equalTo: _superView.leftAnchor),
+                rightAnchor.constraint(equalTo: _superView.rightAnchor),
+                topAnchor.constraint(equalTo: _superView.topAnchor),
+                bottomAnchor.constraint(equalTo: _superView.bottomAnchor)
+            ]
+            anchors.forEach({$0.priority = .defaultLow})
+            NSLayoutConstraint.activate(anchors)
         }
-        if let r = shadowRadius {
-            cornerLayer.xbShadowRadius = r
-        }
-        //统一提交更新，刷新
-        cornerLayer.layoutIfNeeded()
     }
 }
 
-internal class XBCornerLayer: CALayer {
+private final class XBCornerLayer: CALayer {
     override func display() {
         super.contents = super.contents
         let size = bounds.size
@@ -36,7 +36,9 @@ internal class XBCornerLayer: CALayer {
         }
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         
-        guard let ctx = UIGraphicsGetCurrentContext() else { return }
+        guard let ctx = UIGraphicsGetCurrentContext() else { UIGraphicsEndImageContext(); return }
+        guard let bgColor = xbBgColor else { UIGraphicsEndImageContext(); return }
+        ctx.setFillColor(bgColor)
         //        //单色选择最快的渲染方式
         ctx.interpolationQuality = CGInterpolationQuality.none
         var pathRect = bounds
@@ -44,11 +46,10 @@ internal class XBCornerLayer: CALayer {
             pathRect = bounds.insetBy(dx: abs(xbShadowOffset.width), dy: abs(xbShadowOffset.height))
             ctx.setShadow(offset: xbShadowOffset, blur: 0, color: xbShadowColor)
         }
-        
         let path = UIBezierPath(roundedRect: pathRect, byRoundingCorners: corners, cornerRadii: CGSize(width: xbCornerRadius, height: xbCornerRadius))
 //        CGContextBeginTransparencyLayer  //开启透明图层，用于绘制组合阴影
         ctx.addPath(path.cgPath)
-        ctx.setFillColor(xbBgColor)
+        
         ctx.fillPath()
         //        ctx.fillPath()//包含ctx.closePath()，path.fill()
         //        ctx.drawPath(using: .fill)//包含ctx.closePath()，path.fill()
@@ -68,7 +69,7 @@ internal class XBCornerLayer: CALayer {
             setNeedsDisplay()
         }
     }
-    internal var xbBgColor: CGColor! {
+    internal var xbBgColor: CGColor? {
         didSet {
             guard oldValue != xbBgColor else {
                 return
@@ -125,6 +126,45 @@ internal class XBCornerLayer: CALayer {
             setNeedsDisplay()
             displayIfNeeded()
         }
+    }
+}
+
+private struct XBCorerViewKey {
+    static var cornerKey = "XBCorerViewKey"
+}
+extension UIView {
+    
+    
+    public var cornerShadowView: UIView {
+        if _cornerView == nil {
+            _cornerView = XBCornerView()
+            insertSubview(_cornerView!, at: 0)
+        }
+        return _cornerView!
+    }
+    private var _cornerView: XBCornerView? {
+        get {
+           return objc_getAssociatedObject(self, &XBCorerViewKey.cornerKey) as? XBCornerView
+        }
+        set {
+            objc_setAssociatedObject(self, &XBCorerViewKey.cornerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    public func setCornerAndShow(corners: UIRectCorner, cornerRadius: CGFloat, bgColor: UIColor = UIColor.clear, shadowColor: UIColor? = nil, shadowOffSet: CGSize? = nil, shadowRadius: CGFloat? = nil, shadowOpacity: CGFloat = 1.0) {
+        
+        guard let cornerLayer = cornerShadowView.layer as? XBCornerLayer else { return }
+        cornerLayer.corners = corners
+        cornerLayer.xbCornerRadius = cornerRadius
+        cornerLayer.xbShadowColor = shadowColor?.withAlphaComponent(shadowOpacity).cgColor
+        cornerLayer.xbBgColor = bgColor.cgColor
+        if let offset = shadowOffSet {
+            cornerLayer.xbShadowOffset = offset
+        }
+        if let r = shadowRadius {
+            cornerLayer.xbShadowRadius = r
+        }
+        //统一提交更新，刷新
+        cornerLayer.layoutIfNeeded()
     }
 }
 
