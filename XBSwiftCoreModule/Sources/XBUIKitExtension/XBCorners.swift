@@ -42,7 +42,7 @@ private final class XBCornerLayer: CALayer {
         //        //单色选择最快的渲染方式
         ctx.interpolationQuality = CGInterpolationQuality.none
         var pathRect = bounds
-        if shadowColor != nil {
+        if xbShadowColor != nil {
             pathRect = bounds.insetBy(dx: abs(xbShadowOffset.width), dy: abs(xbShadowOffset.height))
             ctx.setShadow(offset: xbShadowOffset, blur: 0, color: xbShadowColor)
         }
