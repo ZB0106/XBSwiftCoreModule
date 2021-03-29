@@ -1,31 +1,31 @@
 PODS:
   - Alamofire (4.9.1)
-  - Differentiator (4.0.1)
-  - RxCocoa (5.1.1):
-    - RxRelay (~> 5)
-    - RxSwift (~> 5)
-  - RxDataSources (4.0.1):
-    - Differentiator (~> 4.0)
-    - RxCocoa (~> 5.0)
-    - RxSwift (~> 5.0)
-  - RxRelay (5.1.1):
-    - RxSwift (~> 5)
-  - RxSwift (5.1.1)
+  - Differentiator (5.0.0)
+  - RxCocoa (6.1.0):
+    - RxRelay (= 6.1.0)
+    - RxSwift (= 6.1.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.1.0):
+    - RxSwift (= 6.1.0)
+  - RxSwift (6.1.0)
   - SnapKit (4.2.0)
-  - XBSwiftCoreModule (0.1.4):
-    - XBSwiftCoreModule/XBCircleScroll (= 0.1.4)
-    - XBSwiftCoreModule/XBFoundationExtension (= 0.1.4)
-    - XBSwiftCoreModule/XBListViewManager (= 0.1.4)
-    - XBSwiftCoreModule/XBMenuView (= 0.1.4)
-    - XBSwiftCoreModule/XBTools (= 0.1.4)
-    - XBSwiftCoreModule/XBUIKitExtension (= 0.1.4)
-  - XBSwiftCoreModule/XBCircleScroll (0.1.4):
+  - XBSwiftCoreModule (0.1.5):
+    - XBSwiftCoreModule/XBCircleScroll (= 0.1.5)
+    - XBSwiftCoreModule/XBFoundationExtension (= 0.1.5)
+    - XBSwiftCoreModule/XBListViewManager (= 0.1.5)
+    - XBSwiftCoreModule/XBMenuView (= 0.1.5)
+    - XBSwiftCoreModule/XBTools (= 0.1.5)
+    - XBSwiftCoreModule/XBUIKitExtension (= 0.1.5)
+  - XBSwiftCoreModule/XBCircleScroll (0.1.5):
     - XBSwiftCoreModule/XBTools
-  - XBSwiftCoreModule/XBFoundationExtension (0.1.4)
-  - XBSwiftCoreModule/XBListViewManager (0.1.4)
-  - XBSwiftCoreModule/XBMenuView (0.1.4)
-  - XBSwiftCoreModule/XBTools (0.1.4)
-  - XBSwiftCoreModule/XBUIKitExtension (0.1.4)
+  - XBSwiftCoreModule/XBFoundationExtension (0.1.5)
+  - XBSwiftCoreModule/XBListViewManager (0.1.5)
+  - XBSwiftCoreModule/XBMenuView (0.1.5)
+  - XBSwiftCoreModule/XBTools (0.1.5)
+  - XBSwiftCoreModule/XBUIKitExtension (0.1.5)
 
 DEPENDENCIES:
   - Alamofire
@@ -51,13 +51,13 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
-  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  XBSwiftCoreModule: d74338293d1dec90d6a9681c6bcc620fbb74876b
+  XBSwiftCoreModule: 1f20cae779331d2438d441d4c2feeb88685db730
 
 PODFILE CHECKSUM: e20ca72540173cb54bbe30fc2b90180c04cc2d54
 
