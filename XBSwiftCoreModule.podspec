@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "XBSwiftCoreModule"
-  s.version      = "0.1.5"
+  s.version      = "0.1.6"
   s.summary      = "develop components for swift, you can configure a listview or circleView with this components"
   s.homepage     = "https://github.com/ZB0106/XBSwiftCoreModule"
   s.author             = { "rzb16@sina.com" => "rzb16@sina.com" }
