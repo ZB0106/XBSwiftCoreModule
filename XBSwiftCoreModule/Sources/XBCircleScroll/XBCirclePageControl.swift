@@ -120,8 +120,6 @@ public class XBCirclePageControl: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override class var layerClass: AnyClass { return XBCirclePageContainerLayer.self }
-    
 }
 
 //布局
@@ -149,12 +147,11 @@ extension XBCirclePageControl {
         self.widthLayout = self.widthAnchor.constraint(equalToConstant: width)
         self.widthLayout?.isActive = true
     }
-    
+    // 添加layer以后layer会调用layoutSublayers()，然后ayoutSublayers()中会调用layer的代理方法layoutSublayers(of layer: CALayer)
     public override func layoutSublayers(of layer: CALayer) {
         if bounds.width == 0 || bounds.height == 0 { return }
         guard let layers = layer.sublayers else { return }
         
-        print("layoutSublayers",bounds)
         let size = bounds.size.height
         let gap: CGFloat = 3.0
         
