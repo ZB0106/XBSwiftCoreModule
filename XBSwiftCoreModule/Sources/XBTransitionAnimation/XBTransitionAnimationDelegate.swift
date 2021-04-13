@@ -9,21 +9,39 @@ import UIKit
 
 class XBTransitionAnimationDelegate: NSObject, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
+    deinit {
+        #if DEBUG
+        print(self,#function)
+        #endif
+    }
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        XBTransitionAnimation(true, false)
+        if presented.xbTransitionType == .none {
+            return nil
+        }
+        return XBTransitionAnimation(true, false)
     }
 
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        XBTransitionAnimation(false, false)
+        if dismissed.xbTransitionType == .none {
+            return nil
+        }
+        return XBTransitionAnimation(false, false)
     }
     
     //navi
     @available(iOS 7.0, *)
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
         if operation == .pop {
+            if fromVC.xbTransitionType == .none {
+                return nil
+            }
             return XBTransitionAnimation(false, true)
         } else if operation == .push {
+            if toVC.xbTransitionType == .none {
+                return nil
+            }
             return XBTransitionAnimation(true, true)
         } else {
             return nil
@@ -32,7 +50,6 @@ class XBTransitionAnimationDelegate: NSObject, UIViewControllerTransitioningDele
 }
 fileprivate struct XBTransitionDelegateKey {
     static var viewControllerTransitionKey = "viewControllerTransitionKey"
-    static var naviControllerTransitionKey = "naviControllerTransitionKey"
     static var transitionAnimationDurationKey = "transitionAnimationDurationKey"
     static var transitionAnimationTypeKey = "transitionAnimationTypeKey"
 }
@@ -46,13 +63,15 @@ extension UIViewController {
     }
 
     public func XBTransitonPresent(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        viewControllerToPresent.xbViewControllerTransitionDelegate = XBTransitionAnimationDelegate()
+        let delegate = XBTransitionAnimationDelegate()
+        viewControllerToPresent.xbViewControllerTransitionDelegate = delegate
+        viewControllerToPresent.transitioningDelegate = delegate
+        viewControllerToPresent.modalPresentationStyle = .custom
+        
         self.present(viewControllerToPresent, animated: true, completion: completion)
     }
-    private var xbViewControllerTransitionDelegate: UIViewControllerTransitioningDelegate? {
+    fileprivate var xbViewControllerTransitionDelegate: NSObjectProtocol? {
         set {
-            self.transitioningDelegate = newValue
-            self.modalPresentationStyle = .custom
             objc_setAssociatedObject(self, &XBTransitionDelegateKey.viewControllerTransitionKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
@@ -90,18 +109,17 @@ extension UIViewController {
 }
 
 extension UINavigationController {
-    //为了持有delegate 防止释放
-    private var xbNaviControllerTransitionDelegate: UINavigationControllerDelegate? {
-        set {
-            self.delegate = newValue
-            objc_setAssociatedObject(self, &XBTransitionDelegateKey.naviControllerTransitionKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-        get {
-            objc_getAssociatedObject(self, &XBTransitionDelegateKey.naviControllerTransitionKey) as? UINavigationControllerDelegate
-        }
-    }
+    
     public func XBTransitionPushViewController(_ viewController: UIViewController, animated: Bool) {
-        self.xbNaviControllerTransitionDelegate = XBTransitionAnimationDelegate()
+        
+        ///防止delegate提前释放，保证delegate能跟随viewcontroller一起释放,以及保证vc push和pop的动画一致性
+        var tmDelegate = delegate
+        if tmDelegate == nil {
+            tmDelegate = XBTransitionAnimationDelegate()
+            delegate = tmDelegate
+        }
+        //XBTransitionPushViewController被调用就会是tmDelegate retaincout+1
+        viewController.xbViewControllerTransitionDelegate = tmDelegate
         self.pushViewController(viewController, animated: animated)
     }
 }
