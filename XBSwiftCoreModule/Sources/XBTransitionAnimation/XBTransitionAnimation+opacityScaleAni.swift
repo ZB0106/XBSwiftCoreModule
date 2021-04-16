@@ -15,16 +15,17 @@ extension XBTransitionAnimation {
         guard let toVC = transitionContext.viewController(forKey: .to) else {
             fatalError("转场动画失败")
         }
-        //由于push只展示最上层的 view，present展示所有的view所以要区别对待
-        if !isShow && !isPush {
-            fromVC.view.removeFromSuperview()
-        }
         let containerView = transitionContext.containerView
         let duration = transitionDuration(using: transitionContext)
         
         var transitionType: UIInputViewController.XBTransitionAnimationType
+        
+        //由于push只展示最上层的 view，present展示所有的view所以要区别对待
         if !isShow {
             transitionType = fromVC.xbTransitionType
+            if !isPush {
+                fromVC.view.isHidden = true
+            }
         } else {
             transitionType = toVC.xbTransitionType
         }
@@ -100,6 +101,7 @@ extension XBTransitionAnimation {
                     if toVC.view.superview == nil {
                         containerView.addSubview(toVC.view)
                     }
+                    fromVC.view.isHidden = false
                     //必须添加tovc.view 才能调用completeTransition。否者有可能导致tovc.view 没被保存到prensent栈中，从而 在 dismiss的时候导致tovc.view无法被添加
                     //出现问题的流程->使用自定义转场动画present->VC1->使用系统动画Prensent->VC2,此时vc2->dismiss的时候会导致 vc1.view 无法添加上去，从而导致 transitionView在最上层覆盖
                     transitionContext.completeTransition(true)
