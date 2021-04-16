@@ -94,12 +94,15 @@ extension XBTransitionAnimation {
                     ///2)present: UIWindow->UITransationView->UIDropShadowView->UITransationView->presenentVC->UITransationView->presenentVC....
                 
                 animationBlock = { (finished) in
-                    transitionContext.completeTransition(true)
+                    
                     layer.removeFromSuperlayer()
                     //采用push方式时需要手动添加fromView的view
                     if toVC.view.superview == nil {
                         containerView.addSubview(toVC.view)
                     }
+                    //必须添加tovc.view 才能调用completeTransition。否者有可能导致tovc.view 没被保存到prensent栈中，从而 在 dismiss的时候导致tovc.view无法被添加
+                    //出现问题的流程->使用自定义转场动画present->VC1->使用系统动画Prensent->VC2,此时vc2->dismiss的时候会导致 vc1.view 无法添加上去，从而导致 transitionView在最上层覆盖
+                    transitionContext.completeTransition(true)
                 }
             }
         default:
