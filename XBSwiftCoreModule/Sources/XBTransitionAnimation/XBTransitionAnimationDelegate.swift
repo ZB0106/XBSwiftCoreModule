@@ -87,7 +87,7 @@ extension UIViewController {
         get {
             var duration = (objc_getAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationDurationKey) as? NSNumber)?.doubleValue
             if duration == nil || duration == 0 {
-                duration = 0.5
+                duration = 0.24
             }
             return duration!
         }

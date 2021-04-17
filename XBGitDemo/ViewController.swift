@@ -50,13 +50,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
             make.height.equalTo(50)
         }
 
+        meneview.clickHandle = { tag in
+            if tag == 0 {
+                let v = ViewController()
+                v.xbTransitionType = .ocapcityScale
+                self.navigationController?.XBTransitionPushViewController(v, animated: true)
+            } else {
+                self.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        }
        
     }
 
-    
     var block: (() -> Void)?
     var boolBlock: (() -> Bool)?
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let v = UINavigationController(rootViewController: ViewController())
+        v.xbTransitionType = .ocapcityScale
+        v.xbTransitionAnimationDuration = 0.24
+        self.navigationController?.XBTransitonPresent(v, animated: true, completion: nil)
+        
+        return
         var b = 1
         self.block = {
             b = 2

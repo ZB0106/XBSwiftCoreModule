@@ -36,12 +36,3 @@ class XBTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning, XB
     }
     
 }
-
-extension XBTransitionAnimation: CAAnimationDelegate {
-    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
-        animationBlock?(flag)
-        //置空释放内存
-        animationBlock = nil
-    }
-    
-}
