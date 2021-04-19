@@ -7,6 +7,9 @@
 
 import UIKit
 
+
+public let DefaultAnimationDuration = 0.24
+
 class XBTransitionAnimationDelegate: NSObject, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     deinit {
@@ -54,21 +57,36 @@ fileprivate struct XBTransitionDelegateKey {
     static var transitionAnimationTypeKey = "transitionAnimationTypeKey"
 }
 
-
 extension UIViewController {
 
     public enum XBTransitionAnimationType: Int {
         case none = 0
-        case ocapcityScale = 1
+        case ocapcityScale
     }
-
-    public func XBTransitonPresent(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        let delegate = XBTransitionAnimationDelegate()
-        viewControllerToPresent.xbViewControllerTransitionDelegate = delegate
-        viewControllerToPresent.transitioningDelegate = delegate
-        viewControllerToPresent.modalPresentationStyle = .custom
-        
-        self.present(viewControllerToPresent, animated: true, completion: completion)
+    
+    public func setXBTransitionType(transitonType: XBTransitionAnimationType, duration: TimeInterval = DefaultAnimationDuration, naviController: UINavigationController? = nil) {
+        self.xbTransitionType = transitonType
+        self.xbTransitionAnimationDuration = duration
+        switch transitonType {
+        case .none:
+            break
+        default:
+            if naviController == nil {
+                let delegate = XBTransitionAnimationDelegate()
+                self.xbViewControllerTransitionDelegate = delegate
+                self.transitioningDelegate = delegate
+                self.modalPresentationStyle = .custom
+            } else {
+                ///防止delegate提前释放，保证delegate能跟随viewcontroller一起释放,以及保证vc push和pop的动画一致性
+                var tmDelegate = naviController?.delegate
+                if tmDelegate == nil {
+                    tmDelegate = XBTransitionAnimationDelegate()
+                    naviController?.delegate = tmDelegate
+                }
+                //XBTransitionPushViewController被调用就会是tmDelegate retaincout+1
+                self.xbViewControllerTransitionDelegate = tmDelegate
+            }
+        }
     }
     fileprivate var xbViewControllerTransitionDelegate: NSObjectProtocol? {
         set {
@@ -79,7 +97,7 @@ extension UIViewController {
         }
     }
     //浮点数需要使用nsnumber 包装下，其他普通数据不需要
-    public var xbTransitionAnimationDuration: TimeInterval {
+    var xbTransitionAnimationDuration: TimeInterval {
         set {
             let num = NSNumber(value: newValue)
             objc_setAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationDurationKey, num, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -87,13 +105,13 @@ extension UIViewController {
         get {
             var duration = (objc_getAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationDurationKey) as? NSNumber)?.doubleValue
             if duration == nil || duration == 0 {
-                duration = 0.24
+                duration = DefaultAnimationDuration
             }
             return duration!
         }
     }
     //浮点数需要使用nsnumber 包装下，其他普通数据不需要
-    public var xbTransitionType: XBTransitionAnimationType {
+    var xbTransitionType: XBTransitionAnimationType {
         set {
             let value = newValue.rawValue
             objc_setAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationTypeKey, value, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
@@ -108,18 +126,3 @@ extension UIViewController {
     }
 }
 
-extension UINavigationController {
-    
-    public func XBTransitionPushViewController(_ viewController: UIViewController, animated: Bool) {
-        
-        ///防止delegate提前释放，保证delegate能跟随viewcontroller一起释放,以及保证vc push和pop的动画一致性
-        var tmDelegate = delegate
-        if tmDelegate == nil {
-            tmDelegate = XBTransitionAnimationDelegate()
-            delegate = tmDelegate
-        }
-        //XBTransitionPushViewController被调用就会是tmDelegate retaincout+1
-        viewController.xbViewControllerTransitionDelegate = tmDelegate
-        self.pushViewController(viewController, animated: animated)
-    }
-}

@@ -53,8 +53,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
         meneview.clickHandle = { tag in
             if tag == 0 {
                 let v = ViewController()
-                v.xbTransitionType = .ocapcityScale
-                self.navigationController?.XBTransitionPushViewController(v, animated: true)
+                v.setXBTransitionType(transitonType: .ocapcityScale, naviController: self.navigationController)
+                self.navigationController?.pushViewController(v, animated: true)
             } else {
                 self.navigationController?.dismiss(animated: true, completion: nil)
             }
@@ -66,9 +66,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate {
     var boolBlock: (() -> Bool)?
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let v = UINavigationController(rootViewController: ViewController())
-        v.xbTransitionType = .ocapcityScale
-        v.xbTransitionAnimationDuration = 0.24
-        self.navigationController?.XBTransitonPresent(v, animated: true, completion: nil)
+        v.setXBTransitionType(transitonType: .ocapcityScale)
+        self.navigationController?.present(v, animated: true, completion: nil)
         
         return
         var b = 1

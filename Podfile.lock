@@ -12,22 +12,22 @@ PODS:
     - RxSwift (= 6.1.0)
   - RxSwift (6.1.0)
   - SnapKit (4.2.0)
-  - XBSwiftCoreModule (0.1.9):
-    - XBSwiftCoreModule/XBCircleScroll (= 0.1.9)
-    - XBSwiftCoreModule/XBFoundationExtension (= 0.1.9)
-    - XBSwiftCoreModule/XBListViewManager (= 0.1.9)
-    - XBSwiftCoreModule/XBMenuView (= 0.1.9)
-    - XBSwiftCoreModule/XBTools (= 0.1.9)
-    - XBSwiftCoreModule/XBTransitionAnimation (= 0.1.9)
-    - XBSwiftCoreModule/XBUIKitExtension (= 0.1.9)
-  - XBSwiftCoreModule/XBCircleScroll (0.1.9):
+  - XBSwiftCoreModule (0.2.0):
+    - XBSwiftCoreModule/XBCircleScroll (= 0.2.0)
+    - XBSwiftCoreModule/XBFoundationExtension (= 0.2.0)
+    - XBSwiftCoreModule/XBListViewManager (= 0.2.0)
+    - XBSwiftCoreModule/XBMenuView (= 0.2.0)
+    - XBSwiftCoreModule/XBTools (= 0.2.0)
+    - XBSwiftCoreModule/XBTransitionAnimation (= 0.2.0)
+    - XBSwiftCoreModule/XBUIKitExtension (= 0.2.0)
+  - XBSwiftCoreModule/XBCircleScroll (0.2.0):
     - XBSwiftCoreModule/XBTools
-  - XBSwiftCoreModule/XBFoundationExtension (0.1.9)
-  - XBSwiftCoreModule/XBListViewManager (0.1.9)
-  - XBSwiftCoreModule/XBMenuView (0.1.9)
-  - XBSwiftCoreModule/XBTools (0.1.9)
-  - XBSwiftCoreModule/XBTransitionAnimation (0.1.9)
-  - XBSwiftCoreModule/XBUIKitExtension (0.1.9)
+  - XBSwiftCoreModule/XBFoundationExtension (0.2.0)
+  - XBSwiftCoreModule/XBListViewManager (0.2.0)
+  - XBSwiftCoreModule/XBMenuView (0.2.0)
+  - XBSwiftCoreModule/XBTools (0.2.0)
+  - XBSwiftCoreModule/XBTransitionAnimation (0.2.0)
+  - XBSwiftCoreModule/XBUIKitExtension (0.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   RxRelay: 483e1a19fad961b41f0b0c0bee506f46c1ae14fe
   RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
-  XBSwiftCoreModule: d3eff57ed7c77d967453eebed2c22e798c375e9e
+  XBSwiftCoreModule: 2251ca74b3032f1f7bc9cea8f6060ba43c5710bd
 
 PODFILE CHECKSUM: e20ca72540173cb54bbe30fc2b90180c04cc2d54
 
