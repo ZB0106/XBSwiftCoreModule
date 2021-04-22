@@ -13,21 +13,18 @@ protocol XBTransitionAnimationProtocol: NSObjectProtocol {
 class XBTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning, XBTransitionAnimationProtocol {
     var isShow: Bool = true
     var isPush: Bool = true
+    var xbtransitionType: XBTransitionAnimationType = .system
+    var xbTransitionAnimationDuration: TimeInterval = 0.24
     var animationBlock: ((Bool) ->())?
-    init(_ isShow: Bool = true, _ isPush: Bool = true) {
+    init(_ isShow: Bool = true, _ isPush: Bool = true, _ xbtransitionType: XBTransitionAnimationType = .system, _ duration: TimeInterval) {
         super.init()
         self.isShow = isShow
         self.isPush = isPush
+        self.xbtransitionType = xbtransitionType
+        self.xbTransitionAnimationDuration = duration
     }
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        var key: UITransitionContextViewControllerKey = .to
-        if !isShow {
-            key = .from
-        }
-        guard let trasitonVC = transitionContext?.viewController(forKey: key) else {
-            fatalError("转场动画失败")
-        }
-        return trasitonVC.xbTransitionAnimationDuration
+        return xbTransitionAnimationDuration
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {

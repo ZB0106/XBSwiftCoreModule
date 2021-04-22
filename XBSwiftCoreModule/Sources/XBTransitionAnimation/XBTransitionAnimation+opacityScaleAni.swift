@@ -21,9 +21,8 @@ extension XBTransitionAnimation {
         } else {
             transitionVC = toVC
         }
-        let transitionType = transitionVC.xbTransitionType
-        switch transitionType {
-        case .ocapcityScale:
+        switch xbtransitionType {
+        case .ocapcityScale(let point):
             do {
                 
                 let containerView = transitionContext.containerView
@@ -35,10 +34,9 @@ extension XBTransitionAnimation {
                     containerView.addSubview(toVC.view)
                     containerView.bringSubviewToFront(toVC.view)
                 }
-                let maxRadius = containerView.bounds.height-60
                 ///创建动画layer
                 let layer = CAShapeLayer()
-                layer.frame = CGRect(origin: CGPoint(x: containerView.bounds.width/2.0, y: maxRadius), size: CGSize(width: 2.0, height: 2.0))
+                layer.frame = CGRect(origin: point, size: CGSize(width: 2.0, height: 2.0))
                 
                 let path = UIBezierPath(roundedRect: layer.bounds, cornerRadius: 1.0)
                 layer.path = path.cgPath
@@ -47,12 +45,12 @@ extension XBTransitionAnimation {
                 
                 
                 let duration = transitionDuration(using: transitionContext)
-                //根据比率计算alpha动画的时间
-                let opacityDuration = Double(containerView.bounds.width/2.0/maxRadius)*duration
+                //根据比率计算alpha动画的时间 支持由下往上弹出
+                let opacityDuration = Double(point.x/point.y)*duration
 
                 var opacityBegintime = 0.0
                 var scaleFromValue: CGFloat = 0.01
-                var scaleToValue: CGFloat = maxRadius
+                var scaleToValue: CGFloat = point.y
                 var opacityFromValue: CGFloat = 0.01
                 var opacityToValue: CGFloat = 1
                 var positonAniBegintime = opacityDuration
@@ -62,7 +60,7 @@ extension XBTransitionAnimation {
                 // backwards动画的起始状态 forwards 动画的最终状态
                 var fillMode = CAMediaTimingFillMode.backwards
                 if !isShow {
-                    scaleFromValue = maxRadius
+                    scaleFromValue = point.y
                     scaleToValue = 0.01
                     opacityFromValue = 1
                     opacityToValue = 0.01

@@ -10,6 +10,11 @@ import UIKit
 
 public let DefaultAnimationDuration = 0.24
 
+public enum XBTransitionAnimationType {
+    case system
+    case ocapcityScale(CGPoint)
+}
+
 class XBTransitionAnimationDelegate: NSObject, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
     
     deinit {
@@ -17,62 +22,57 @@ class XBTransitionAnimationDelegate: NSObject, UIViewControllerTransitioningDele
         print(self,#function)
         #endif
     }
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented.xbTransitionType == .none {
+    var transitonType: XBTransitionAnimationType = .system
+    var xbTransitionAnimationDuration: TimeInterval = 0.24
+    
+    private func intialTransationAni(_ isShow: Bool, _ isPush: Bool) -> XBTransitionAnimation? {
+        switch transitonType {
+        case .system:
             return nil
+        case .ocapcityScale:
+            return XBTransitionAnimation(isShow, isPush, transitonType, xbTransitionAnimationDuration)
         }
-        return XBTransitionAnimation(true, false)
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return intialTransationAni(true, false)
     }
 
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed.xbTransitionType == .none {
-            return nil
-        }
-        return XBTransitionAnimation(false, false)
+        return intialTransationAni(false, false)
     }
-    
     //navi
     @available(iOS 7.0, *)
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         if operation == .pop {
-            if fromVC.xbTransitionType == .none {
-                return nil
-            }
-            return XBTransitionAnimation(false, true)
+            return intialTransationAni(false, true)
         } else if operation == .push {
-            if toVC.xbTransitionType == .none {
-                return nil
-            }
-            return XBTransitionAnimation(true, true)
+            return intialTransationAni(true, true)
         } else {
             return nil
         }
     }
 }
-fileprivate struct XBTransitionDelegateKey {
-    static var viewControllerTransitionKey = "viewControllerTransitionKey"
-    static var transitionAnimationDurationKey = "transitionAnimationDurationKey"
-    static var transitionAnimationTypeKey = "transitionAnimationTypeKey"
-}
 
 extension UIViewController {
 
-    public enum XBTransitionAnimationType: Int {
-        case none = 0
-        case ocapcityScale
+    private struct XBTransitionDelegateKey {
+        static var viewControllerTransitionKey = "viewControllerTransitionKey"
     }
     
-    public func setXBTransitionType(transitonType: XBTransitionAnimationType, duration: TimeInterval = DefaultAnimationDuration, naviController: UINavigationController? = nil) {
-        self.xbTransitionType = transitonType
-        self.xbTransitionAnimationDuration = duration
+    public func setXBTransitionType(transitonType: XBTransitionAnimationType, duration: TimeInterval = DefaultAnimationDuration, touchPostion: CGPoint? = nil, naviController: UINavigationController? = nil) {
+       
         switch transitonType {
-        case .none:
+        case .system:
             break
-        default:
+        case .ocapcityScale:
             if naviController == nil {
                 let delegate = XBTransitionAnimationDelegate()
+                delegate.transitonType = transitonType
+                delegate.xbTransitionAnimationDuration = duration
+                
                 self.xbViewControllerTransitionDelegate = delegate
                 self.transitioningDelegate = delegate
                 self.modalPresentationStyle = .custom
@@ -81,6 +81,8 @@ extension UIViewController {
                 var tmDelegate = naviController?.delegate
                 if tmDelegate == nil {
                     tmDelegate = XBTransitionAnimationDelegate()
+                    (tmDelegate as? XBTransitionAnimationDelegate)?.transitonType = transitonType
+                    (tmDelegate as? XBTransitionAnimationDelegate)?.xbTransitionAnimationDuration = duration
                     naviController?.delegate = tmDelegate
                 }
                 //XBTransitionPushViewController被调用就会是tmDelegate retaincout+1
@@ -89,39 +91,12 @@ extension UIViewController {
         }
     }
     fileprivate var xbViewControllerTransitionDelegate: NSObjectProtocol? {
+        //浮点数需要使用nsnumber 包装下，其他普通数据不需要
         set {
             objc_setAssociatedObject(self, &XBTransitionDelegateKey.viewControllerTransitionKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         get {
             objc_getAssociatedObject(self, &XBTransitionDelegateKey.viewControllerTransitionKey) as? UIViewControllerTransitioningDelegate
-        }
-    }
-    //浮点数需要使用nsnumber 包装下，其他普通数据不需要
-    var xbTransitionAnimationDuration: TimeInterval {
-        set {
-            let num = NSNumber(value: newValue)
-            objc_setAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationDurationKey, num, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-        get {
-            var duration = (objc_getAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationDurationKey) as? NSNumber)?.doubleValue
-            if duration == nil || duration == 0 {
-                duration = DefaultAnimationDuration
-            }
-            return duration!
-        }
-    }
-    //浮点数需要使用nsnumber 包装下，其他普通数据不需要
-    var xbTransitionType: XBTransitionAnimationType {
-        set {
-            let value = newValue.rawValue
-            objc_setAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationTypeKey, value, objc_AssociationPolicy.OBJC_ASSOCIATION_ASSIGN)
-        }
-        get {
-            guard let rawValue = (objc_getAssociatedObject(self, &XBTransitionDelegateKey.transitionAnimationTypeKey) as? Int) else {
-                return .none
-            }
-            
-            return XBTransitionAnimationType.init(rawValue: rawValue) ?? .none
         }
     }
 }
